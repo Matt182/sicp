@@ -1,0 +1,12 @@
+(define (max a b) ( if (> a b) a b))
+(define (sqr a) (* a a))
+(define (sqsum a b) (+ (sqr a)(sqr b)))
+
+(define (th a b c)
+  (cond ((>= a b) (sqsum (max b c)
+                         a))
+        ((>= b c) (sqsum (max a c)
+                         b))
+        ((>= c a) (sqsum (max a b)
+                         c))
+        ))
