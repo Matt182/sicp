@@ -1,0 +1,10 @@
+(define (square x) (* x x))
+(define (tree-map func tree)
+  (map (lambda (x)
+         (cond ((null? x) nil)
+               ((pair? x) (tree-map func x))
+               (else (func x))))
+       tree))
+
+(define (square-tree tree)
+  (tree-map square tree))
