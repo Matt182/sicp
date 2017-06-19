@@ -1,0 +1,36 @@
+#lang planet neil/sicp
+
+(define (make-account balance secret)
+  (define counter 7)
+  (define wrong 1)
+  (define (withdraw amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Недостаточно денег на счете"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+
+  (define (dispatch sec m)
+    (if (eq? sec secret)
+        (cond ((eq? m `withdraw) withdraw)
+          ((eq? m `deposit) deposit)
+          (else (error "Неизвестный вызов -- MAKE-ACCOUNT"
+                       m)))
+        (if (= counter wrong)
+            (error "cops are called")
+            (begin (set! wrong (+ wrong 1))
+                   (lambda (a) "Wrong password")))))
+    dispatch)
+
+(define a (make-account 100 `asd))
+
+((a `zxc `withdraw) 25)
+((a `zxc `withdraw) 25)
+((a `zxc `withdraw) 25)
+((a `zxc `withdraw) 25)
+((a `zxc `withdraw) 25)
+((a `zxc `withdraw) 25)
+((a `zxc `withdraw) 25)
+((a `zxc `withdraw) 25)
